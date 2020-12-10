@@ -1,6 +1,27 @@
 {% extends 'customer/base.html' %}
 {% block content %}
-<div class="w3-bar w3-large w3-black">
+
+<style>
+  form {
+    margin: 0 auto;
+    border: 10px solid #f1f1f1;
+    width:400px
+  }
+</style>
+
+<div class="page-header">
+  <h1>World On Wheels</h1>
+</div>
+<div class="w3-center" style="color:#63667e;font-size:20px">
+  <a class="w3-bar-item w3-btn w3-center" href="/customer_portal/logout/">Logout</a>
+  <a class="w3-bar-item w3-btn w3-center" href="/customer_portal/auth/">Myhome</a>
+  <a class="w3-bar-item w3-btn w3-center" href="/customer_portal/rent/">Rent a car</a>
+  <a class="w3-bar-item w3-btn w3-center" href="/customer_portal/return/">Return a car</a>
+  <a class="w3-bar-item w3-btn w3-center" href="/customer_portal/invoice/">Invoice</a>
+</div>
+
+
+<!-- <div class="w3-bar w3-large w3-black">
   <div class="w3-bar-item w3-left w3-black">Customer Portal: {{user.username}}</div>
   
   <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/logout/">logout</a>
@@ -8,26 +29,31 @@
   <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/return/">Return a car</a>
   <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/invoice/">Invoice</a>
   <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/auth/">Myhome</a>
-  
-  <!-- <a class="w3-ber-item w3-btn w3-teal w3-right" href="/customer_portal/search/">Search for cars</a> -->
-</div>
+  <a class="w3-ber-item w3-btn w3-teal w3-right" href="/customer_portal/search/">Search for cars</a>
+</div> -->
 {% csrf_token %}
+
 
 <div class="w3-display-container" style="height:400px;">
   <div class="w3-display-middle">
 
 
- <h3>Your service</h3> 
- 
-service_id : {{rental_service.id}}<br><br>
+  <h1>Return Car</h1> 
+  
+  <!-- service_id : {{rental_service.id}}<br><br> -->
 
-<form class="w3-container" action="/customer_portal/return_detail/" method="POST">{% csrf_token %}
-    <lable>E_odometer :</lable> <input class="w3-input" type="text" name="e_odometer"><br><br>
+  <form class="w3-container" action="/customer_portal/return_detail/" method="POST">{% csrf_token %}
+
+    <p>Your Service Infomation</p> 
+    service_id : {{rental_service.id}}<br><br>
+    <lable>Please enter current odometer :</lable> 
+    <input class="w3-input" type="text" name="e_odometer"><br><br>
     <input class="w3-btn w3-teal" type="submit">
-  </form><br><br>
-<!-- duration : {{order.days}} days<br><br>
-car-dealer : {{order.car_dealer.car_dealer.first_name}} {{order.car_dealer.car_dealer.last_name}}<br><br>
-car-dealer contact no: {{order.car_dealer.mobile}}<br><br>  -->
-</div>
+  </form>
+  <br><br>
+  <!-- duration : {{order.days}} days<br><br>
+  car-dealer : {{order.car_dealer.car_dealer.first_name}} {{order.car_dealer.car_dealer.last_name}}<br><br>
+  car-dealer contact no: {{order.car_dealer.mobile}}<br><br>  -->
+  </div>
 </div>
 {% endblock %}
