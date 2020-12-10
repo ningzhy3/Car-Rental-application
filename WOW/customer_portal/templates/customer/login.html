@@ -7,6 +7,23 @@
 {% endif %}
 
 {% load static %}
+
+
+<!-- <div class="w3-display-container" style="height:500px;">
+  <div class="w3-display-middle">
+<form class="w3-container" action="/customer_portal/auth/" method="POST">{% csrf_token %}
+  <lable>Username :</lable> <input class="w3-input" type="text" name="username"><br><br>
+  <lable>Password :</lable> <input class="w3-input" type="password" name="password"><br><br>
+  <input class="w3-btn w3-teal" type="submit">
+</form><br><br>
+<div class="w3-container">
+<a class="w3-btn w3-teal" href="/customer_portal/register/">new user ? sign up here</a>
+<a class="w3-btn w3-teal" href="/">Home</a>
+</div>
+</div>
+</div> -->
+
+
 <style>
   body {font-family: Arial, Helvetica, sans-serif;}
   form {
@@ -79,11 +96,11 @@
   </div>
 
   <div class="container">
-    <label for="uname"><b>Username</b></label>
-    <input class="w3-input" type="text" placeholder="Enter Username" name="uname" required>
+    <label for="username"><b>Username</b></label>
+    <input class="w3-input" type="text" placeholder="Enter Username" name="username" required>
 
-    <label for="psw"><b>Password</b></label>
-    <input class="w3-input" type="password" placeholder="Enter Password" name="psw" required>
+    <label for="password"><b>Password</b></label>
+    <input class="w3-input" type="password" placeholder="Enter Password" name="password" required>
         
     <button type="login">Login</button>
     <label>
@@ -95,34 +112,9 @@
     <span>New? Sign Up Here</span><br>
     <a class="w3-btn w3-teal" href="/customer_portal/register/">Individual</a>
     <a class="w3-btn w3-teal" href="/customer_portal/register_corp/">Corporate</a>
-    <!-- <button type="button" class="cancelbtn">Cancel</button> -->
+    
     <span class="psw">Back <a href="/">Home</a></span>
-  </div>
-</form>
+  </div> 
+</form> 
 
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <div class="w3-display-container" style="height:500px;">
-  <div class="w3-display-middle">
-<form class="w3-container" action="/customer_portal/auth/" method="POST">{% csrf_token %}
-  <lable>Username :</lable> <input class="w3-input" type="text" name="username"><br><br>
-  <lable>Password :</lable> <input class="w3-input" type="password" name="password"><br><br>
-  <input class="w3-btn w3-teal" type="submit">
-</form><br><br>
-<div class="w3-container">
-<a class="w3-btn w3-teal" href="/customer_portal/register/">new user ? sign up here</a>
-<a class="w3-btn w3-teal" href="/">Home</a>
-</div>
-</div>
-</div> -->
 {% endblock %}
