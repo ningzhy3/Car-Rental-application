@@ -5,7 +5,114 @@
 {% if form.errors %}
 
 {% endif %}
-<div class="w3-display-container" style="height:500px;">
+
+{% load static %}
+<style>
+  body {font-family: Arial, Helvetica, sans-serif;}
+  form {
+    margin: 0 auto;
+    border: 10px solid #f1f1f1;
+    width:400px
+  }
+  
+  input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  button:hover {
+    opacity: 0.8;
+  }
+  
+  /* .cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+  } */
+  
+  .container {
+    padding: 16px;
+  }
+  
+  span.psw {
+    float: right;
+    padding-top: 16px;
+  }
+
+  .imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+  }
+
+  img.avatar {
+    width: 40%;
+    border-radius: 50%;
+  }
+
+  span.psw {
+    float: right;
+    padding-top: 16px;
+  }
+
+  </style>
+
+<h1 style="text-align:center">Login Form</h1>
+
+<form action="/customer_portal/auth/" method="POST">{% csrf_token %}
+
+  <div class="imgcontainer">
+    <img src="{% static 'images/car.jpg' %}" alt="Avatar" class="avatar">
+  </div>
+
+  <div class="container">
+    <label for="uname"><b>Username</b></label>
+    <input class="w3-input" type="text" placeholder="Enter Username" name="uname" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input class="w3-input" type="password" placeholder="Enter Password" name="psw" required>
+        
+    <button type="login">Login</button>
+    <label>
+      <input type="checkbox" checked="checked" name="remember"> Remember me
+    </label>
+  </div>
+
+  <div class="container" style="background-color:#f1f1f1">
+    <span>New? Sign Up Here</span><br>
+    <a class="w3-btn w3-teal" href="/customer_portal/register/">Individual</a>
+    <a class="w3-btn w3-teal" href="/customer_portal/register_corp/">Corporate</a>
+    <!-- <button type="button" class="cancelbtn">Cancel</button> -->
+    <span class="psw">Back <a href="/">Home</a></span>
+  </div>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="w3-display-container" style="height:500px;">
   <div class="w3-display-middle">
 <form class="w3-container" action="/customer_portal/auth/" method="POST">{% csrf_token %}
   <lable>Username :</lable> <input class="w3-input" type="text" name="username"><br><br>
@@ -17,5 +124,5 @@
 <a class="w3-btn w3-teal" href="/">Home</a>
 </div>
 </div>
-</div>
+</div> -->
 {% endblock %}
