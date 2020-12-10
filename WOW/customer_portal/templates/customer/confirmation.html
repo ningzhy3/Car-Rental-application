@@ -1,0 +1,31 @@
+{% extends 'customer/base.html' %}
+{% block content %}
+
+<div class="w3-bar w3-large w3-black">
+  <div class="w3-bar-item w3-left w3-black">Customer Portal: {{user.username}}</div>
+  <a class="w3-bar-item w3-right w3-btn w3-teal" href="/">Home</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/logout/">logout</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/rent/">Rent a car</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/return/">Return a car</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/invoice/">Invoice</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/auth/">Myhome</a>
+  <!-- <a class="w3-ber-item w3-btn w3-teal w3-right" href="/customer_portal/search/">Search for cars</a> -->
+</div>
+<div class="w3-containet w3-center" style="padding:100px  ">
+<!-- name : {{vehicle.car_name}} -->
+<form class="w3-container" action="/customer_portal/confirmed/" method="post">
+  {% csrf_token %}
+  <!-- Price : {{cost_per_day}} / day<br><br> -->
+  <lable>For How many days ?</lable> : <input type="text" name="days"><br><br>
+  <lable>Model</lable> : <input type="text" name="model"><br><br>
+  <lable>Pick up location</lable> : <input type="text" name="p_location"><br><br>
+  <lable>Drop off location</lable> : <input type="text" name="d_location"><br><br>
+  <lable>Pick up date</lable> : <input type="date" name="p_date"><br><br>
+  <lable>Drop off date</lable> : <input type="date" name="d_date"><br><br>
+
+  <input class="w3-btn w3-teal" type="submit" value="confirm"><br><br>
+  <!-- <input type="hidden" value="{{vehicle.id}}" name="id"> -->
+  <br><br>
+</from>
+</div>
+{% endblock %}
