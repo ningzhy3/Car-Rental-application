@@ -1,11 +1,13 @@
-
 {% extends 'customer/base.html' %}
 {% block content %}
 {% load static %}
 <div class="w3-bar w3-large w3-black">
   <div class="w3-bar-item w3-left w3-black">Customer Portal: {{user.username}}</div>
-  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/logout/">logout</a>
-  <!-- <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/manage/">Manage</a> -->
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/logout/">Logout</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/rent/">Rent a car</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/return/">Return a car</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/invoice/">Invoice</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/auth/">Myhome</a>
 </div>
 
 <div class="w3-container w3-center w3-large" style="padding:20px;">Welcome Traveller ! You shall drive the car of your dreams.</div>
@@ -17,3 +19,4 @@
 </div>
 </div>
 {% endblock %}
+郑秀生
