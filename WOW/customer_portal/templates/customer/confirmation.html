@@ -1,7 +1,70 @@
 {% extends 'customer/base.html' %}
 {% block content %}
 
-<div class="w3-bar w3-large w3-black">
+<style>
+  form {
+    margin: 0 auto;
+    border: 10px solid #f1f1f1;
+    width:400px
+  }
+</style>
+
+<div class="page-header">
+  <h1>World On Wheels</h1>
+</div>
+<div class="w3-center" style="color:#63667e;font-size:20px">
+  <a class="w3-bar-item w3-btn w3-center" href="/customer_portal/logout/">Logout</a>
+  <a class="w3-bar-item w3-btn w3-center" href="/customer_portal/auth/">Myhome</a>
+  <a class="w3-bar-item w3-btn w3-center" href="/customer_portal/rent/">Rent a car</a>
+  <a class="w3-bar-item w3-btn w3-center" href="/customer_portal/return/">Return a car</a>
+  <a class="w3-bar-item w3-btn w3-center" href="/customer_portal/invoice/">Invoice</a>
+</div>
+<br><br>
+<form action="/customer_portal/confirmed/" method="post">
+  {% csrf_token %}
+
+  <div style="padding: 16px">
+
+    <label for="days"><b>For How many days ?</b></label>
+    <input class="w3-input" type="text" name="days" required>
+
+    <label for="model"><b>Select Car type</b></label>
+    <input class="w3-input" type="text" name="model" required>
+    <!-- <select>
+      <option value="volvo">Volvo</option>
+      <option value="saab">Saab</option>
+      <option value="opel">Opel</option>
+      <option value="audi">Audi</option>
+    </select> -->
+
+    <label for="p_location"><b>Pick-up Location</b></label>
+    <input class="w3-input" type="text" name="p_location" required>
+
+    <label for="d_location"><b>Pick-up Location</b></label>
+    <input class="w3-input" type="text" name="d_location" required>
+
+    <label for="p_date"><b>Pick-up Date</b></label>
+    <input class="w3-input" type="date" name="p_date" required>
+
+    <label for="d_date"><b>Drop-off Date</b></label>
+    <input class="w3-input" type="date" name="d_date" required>
+    <br><br>
+    <input class="w3-btn w3-red" type="submit" value="confirm" ><br><br>
+    
+  </div>
+ <!-- <div class="container" style="background-color:#f1f1f1" style="width:400px">
+    <input class="w3-btn w3-red" type="submit" value="confirm" ><br><br>
+  </div> -->
+  
+</form>
+
+{% endblock %}
+
+
+
+
+
+<!-- <div class="w3-bar w3-large w3-black">
   <div class="w3-bar-item w3-left w3-black">Customer Portal: {{user.username}}</div>
   <a class="w3-bar-item w3-right w3-btn w3-teal" href="/">Home</a>
   <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/logout/">logout</a>
@@ -9,23 +72,22 @@
   <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/return/">Return a car</a>
   <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/invoice/">Invoice</a>
   <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/auth/">Myhome</a>
-  <!-- <a class="w3-ber-item w3-btn w3-teal w3-right" href="/customer_portal/search/">Search for cars</a> -->
 </div>
-<div class="w3-containet w3-center" style="padding:100px  ">
+<div class="w3-containet w3-center" style="padding:100px  "> -->
 <!-- name : {{vehicle.car_name}} -->
-<form class="w3-container" action="/customer_portal/confirmed/" method="post">
-  {% csrf_token %}
+<!-- <form class="w3-container" action="/customer_portal/confirmed/" method="post">
+  {% csrf_token %} -->
   <!-- Price : {{cost_per_day}} / day<br><br> -->
-  <lable>For How many days ?</lable> : <input type="text" name="days"><br><br>
+  <!-- <lable>For How many days ?</lable> : <input type="text" name="days"><br><br>
   <lable>Model</lable> : <input type="text" name="model"><br><br>
   <lable>Pick up location</lable> : <input type="text" name="p_location"><br><br>
   <lable>Drop off location</lable> : <input type="text" name="d_location"><br><br>
   <lable>Pick up date</lable> : <input type="date" name="p_date"><br><br>
   <lable>Drop off date</lable> : <input type="date" name="d_date"><br><br>
 
-  <input class="w3-btn w3-teal" type="submit" value="confirm"><br><br>
+  <input class="w3-btn w3-teal" type="submit" value="confirm"><br><br> -->
   <!-- <input type="hidden" value="{{vehicle.id}}" name="id"> -->
-  <br><br>
+  <!-- <br><br>
 </from>
-</div>
-{% endblock %}
+</div> -->
+<!-- {% endblock %} -->
