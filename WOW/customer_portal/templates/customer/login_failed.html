@@ -1,4 +1,26 @@
 {% extends 'customer/base.html'%}
 {% block content %}
-<p>sorry ! wrong info go back to <a href="/customer_portal/login/">login page</a></p>
+<style>
+    form {
+        margin: 0 auto;
+        border: 10px solid #f1f1f1;
+        width:600px
+    }
+    .container {
+        padding: 16px;
+    }
+
+</style>
+
+<form>
+    <div class="container">
+        <p>
+            sorry ! username or password was entered incorrectly.
+            <a href="/customer_portal/login/">Back</a>
+        </p>
+    </div>
+
+</form>
+
+
 {% endblock %}
