@@ -7,6 +7,7 @@ from customer_portal.models import *
 from django.contrib.auth.decorators import login_required
 # from car_dealer_portal.models import *
 from django.http import HttpResponseRedirect
+import datetime
 # Create your views here.
 
 def index(request):
@@ -75,7 +76,7 @@ def registration(request):
 
     customer = Customer(user = user, first_name = firstname, last_name = lastname, email = email, 
     city = city, state = state, zipcode = zipcode, street = street, customer_type = customertype)
-
+    
     customer.save()
     return render(request, 'customer/registered.html')
 
@@ -99,35 +100,90 @@ def registration(request):
 #     return render(request, 'customer/search_results.html')
 
 
-# @login_required
-# def rent_vehicle(request):
-#     id = request.POST['id']
-#     vehicle = Vehicles.objects.get(id = id)
-#     cost_per_day = int(vehicle.capacity)*300
-#     return render(request, 'customer/confirmation.html', {'vehicle':vehicle, 'cost_per_day':cost_per_day})
+@login_required
+def rent_vehicle(request):
+    return render(request, 'customer/confirmation.html', )
 
-# @login_required
-# def confirm(request):
-#     vehicle_id = request.POST['id']
-#     username = request.user
-#     user = User.objects.get(username = username)
-#     days = request.POST['days']
-#     vehicle = Vehicles.objects.get(id = vehicle_id)
-#     if vehicle.is_available:
-#         car_dealer = vehicle.dealer
-#         rent = (int(vehicle.capacity))*300*(int(days))
-#         car_dealer.wallet += rent
-#         car_dealer.save()
-#         try:
-#             order = Orders(vehicle = vehicle, car_dealer = car_dealer, user = user, rent=rent, days=days)
-#             order.save()
-#         except:
-#             order = Orders.objects.get(vehicle = vehicle, car_dealer = car_dealer, user = user, rent=rent, days=days)
-#         vehicle.is_available = False
-#         vehicle.save()
-#         return render(request, 'customer/confirmed.html', {'order':order})
-#     else:
-#         return render(request, 'customer/order_failed.html')
+@login_required
+def return_vehicle(request):
+    
+
+    customer = Customer.objects.get(user = request.user)
+    rental_service = Rental_service.objects.get(customer_id = customer) 
+    print(type(rental_service))
+    return render(request, 'customer/return.html', {'rental_service':rental_service})
+
+@login_required
+def return_detail(request):
+    e_odometer = request.POST['e_odometer']
+
+    customer = Customer.objects.get(user = request.user)
+    rental_service = Rental_service.objects.get(customer_id = customer) 
+    amount = 100
+    
+    date=datetime.date.today()
+   
+    invoice = Invoice(invoice_amount = amount, invoice_date = date, rental_service = rental_service)
+    invoice.save()
+
+    return render(request, 'customer/return_detail.html',)
+
+@login_required
+def invoice(request):
+    
+
+    customer = Customer.objects.get(user = request.user)
+    rental_service = Rental_service.objects.get(customer_id = customer) 
+
+    invoice = Invoice.objects.get(rental_service = rental_service)
+
+
+    
+
+    return render(request, 'customer/invoice.html',{'invoice':invoice})
+    
+
+@login_required
+def confirm(request):
+    username = request.user
+    customer = Customer.objects.get(user = request.user)
+    customer_id = customer.id 
+
+    days = request.POST['days']
+    p_location = Location.objects.get(city = request.POST['p_location'])
+    d_location = Location.objects.get(city = request.POST['d_location'])
+
+    p_date = request.POST['p_date']
+    d_date = request.POST['d_date']
+
+    s_odometer = 0
+    e_odometer = 0
+    d_odometer_limit = 0
+    
+    vehicle = Vehicle.objects.get(model = request.POST['model'])
+
+    rental_service = Rental_service(customer_id = customer, p_location = p_location,
+    d_location = d_location, p_date = p_date, d_date = d_date, s_odometer = s_odometer,
+    e_odometer = e_odometer, vin = vehicle, d_odometer_limit = d_odometer_limit)
+    rental_service.save()
+
+    return render(request, 'customer/confirmed.html')
+
+    # if vehicle.is_available:
+    #     car_dealer = vehicle.dealer
+    #     rent = (int(vehicle.capacity))*300*(int(days))
+    #     car_dealer.wallet += rent
+    #     car_dealer.save()
+    #     try:
+    #         order = Orders(vehicle = vehicle, car_dealer = car_dealer, user = user, rent=rent, days=days)
+    #         order.save()
+    #     except:
+    #         order = Orders.objects.get(vehicle = vehicle, car_dealer = car_dealer, user = user, rent=rent, days=days)
+    #     vehicle.is_available = False
+    #     vehicle.save()
+    #     return render(request, 'customer/confirmed.html', {'order':order})
+    # else:
+    #     return render(request, 'customer/order_failed.html')
 
 # @login_required
 # def manage(request):
