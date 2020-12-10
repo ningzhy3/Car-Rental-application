@@ -65,7 +65,7 @@ class Vehicle(models.Model):
 
 class Rental_service(models.Model):
     p_date = models.DateField()
-    p_date = models.DateField()
+    d_date = models.DateField()
     s_odometer = models.FloatField()
     e_odometer = models.FloatField()
     d_odometer_limit = models.FloatField()
