@@ -136,10 +136,6 @@ def invoice(request):
     rental_service = Rental_service.objects.get(customer_id = customer) 
 
     invoice = Invoice.objects.get(rental_service = rental_service)
-
-
-    
-
     return render(request, 'customer/invoice.html',{'invoice':invoice})
     
 
