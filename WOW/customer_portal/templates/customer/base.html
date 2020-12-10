@@ -5,32 +5,39 @@
   <title>wow</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{% static 'css/w3.css' %}">
+   <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> -->
+   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+   <script src="https://code.jquery.com/jquery-3.5.0.min.js"
+             integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous">
+   </script>
 
-  <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-  <script src="https://code.jquery.com/jquery-3.5.0.min.js"
-            integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous">
-  </script> -->
+<style>
+  .info {
+    text-align: center;
+    padding: 20px;
+    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+  }
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+    color:rgb(143, 186, 200)
+  }
+  .pic-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+  }
+</style>
 
-
-  <style>
-    .page-header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .pic-center {
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  </style>
 </head>
 <body>
-  <!-- <img src="{% static 'images/car.jpg' %}" alt="My image" class="pic-center" width="900px" height="200px"> -->
-  <!-- <div class="w3-container w3-light-blue">
-    <h1 class="w3-center" style="color:white">World On Wheels<h1>
-  </div> -->
 
   {% block content %}
   {% endblock %}
