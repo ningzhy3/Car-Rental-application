@@ -56,6 +56,10 @@ def registration(request):
     zipcode = request.POST['zipcode']
     street = request.POST['street']
     customertype = request.POST['customer_type']
+
+    dln = request.POST['dln']
+    ins_name = request.POST['ins_name']
+    ins_no = request.POST['ins_no']
     try:
         user = User.objects.create_user(username = username, password = password, email = email)
         user.first_name = firstname
@@ -76,8 +80,12 @@ def registration(request):
 
     customer = Customer(user = user, first_name = firstname, last_name = lastname, email = email, 
     city = city, state = state, zipcode = zipcode, street = street, customer_type = customertype)
-    
+    coupon = Coupon.objects.get(id=1)
     customer.save()
+
+    individual = Individual(user = user, customer_ptr = customer, dln = dln, ins_name = ins_name, ins_no = ins_no,coupon = coupon)
+
+    individual.save()
     return render(request, 'customer/registered.html')
 
 # @login_required
@@ -102,41 +110,99 @@ def registration(request):
 
 @login_required
 def rent_vehicle(request):
-    return render(request, 'customer/confirmation.html', )
+    # # return render(request, 'customer/confirmation.html', )
+    # return render(request, 'customer/rent_failed.html', )
+    customer = Customer.objects.get(user = request.user)
+    try: 
+        rental_service = Rental_service.objects.get(customer_id = customer) 
+        return render(request, 'customer/rent_failed.html', )
+    except:
+        return render(request, 'customer/confirmation.html', )
+
 
 @login_required
 def return_vehicle(request):
     
-
     customer = Customer.objects.get(user = request.user)
-    rental_service = Rental_service.objects.get(customer_id = customer) 
-    print(type(rental_service))
-    return render(request, 'customer/return.html', {'rental_service':rental_service})
+    try:
+        rental_service = Rental_service.objects.get(customer_id = customer)
+        try:
+            invoice = Invoice.objects.get(rental_service = rental_service)
+            return render(request, 'customer/return_failed.html')
+        except:
+            return render(request, 'customer/return.html', {'rental_service':rental_service})
+    except:
+        return render(request, 'customer/return_failed.html')
 
 @login_required
 def return_detail(request):
-    e_odometer = request.POST['e_odometer']
-
     customer = Customer.objects.get(user = request.user)
+
     rental_service = Rental_service.objects.get(customer_id = customer) 
-    amount = 100
+    e_odometer = request.POST['e_odometer']
+    #update rental_service table
+    rental_service.objects.filter(id=rental_service.id).update(e_odometer=e_odometer)
+
     
+    invoice = Invoice.objects.get(rental_service = rental_service)
+    
+
+    vehicle = rental_service.vin
+    vehicle_class = Vehicle_class.objects.get(id = vehicle.vehicle_class)
+
+    rent_charge = vehicle_class.rent_charge
+    extra_charge = vehicle_class.extra_charge
+
+    s_odometer = rental_service.s_odometer
+    e_odometer = rental_service.e_odometer
+    d_odometer_limit = rental_service.d_odometer_limit
+
+    if customer.customer_type == 'I':
+        individual = individual.objects.get(user = request.user)
+        coupon = Coupon.objects.get(id = individual.coupon)
+        discount = coupon.coupon_rate
+    else:
+        corporate = Corporate.objects.get(user = request.user)
+        corporation = Corporation.objects.get(id = corporate.corporation)
+        discount = corporation.corp_discount
+
+    interval = rental_service.d_date - rental_service.p_date
+    days = interval.days
+
+    if (e_odometer-s_odometer) > d_odometer_limit:
+        sum = days*rent_charge+extra_charge*(e_odometer-s_odometer)
+    else:
+        sum = days*rent_charge
+
+    amount=discount*sum
+    
+    
+    # Rental_service.objects.filter(customer_id=customer).delete()
     date=datetime.date.today()
-   
+
     invoice = Invoice(invoice_amount = amount, invoice_date = date, rental_service = rental_service)
     invoice.save()
 
     return render(request, 'customer/return_detail.html',)
 
+    
+
 @login_required
 def invoice(request):
     
+
 
     customer = Customer.objects.get(user = request.user)
     rental_service = Rental_service.objects.get(customer_id = customer) 
 
     invoice = Invoice.objects.get(rental_service = rental_service)
+
     return render(request, 'customer/invoice.html',{'invoice':invoice})
+
+@login_required
+def pay(request):
+    
+    return render(request, 'customer/pay.html')
     
 
 @login_required
@@ -222,3 +288,22 @@ def confirm(request):
 #     vehicle.save()
 #     order.delete()
 #     return HttpResponseRedirect('/customer_portal/manage/')
+
+
+@login_required
+def pay_confirmed(request):
+    payment_number = request.POST.get('payment_number')
+    payment_method = request.POST.get('payment_method')
+    payment_name = request.POST.get('payment_name')
+    customer = Customer.objects.get(user = request.user)
+    rental_service = Rental_service.objects.get(customer_id = customer) 
+    invoice = Invoice.objects.get(rental_service = rental_service)
+    
+    payment_amount = invoice.invoice_amount
+
+    payment_date = datetime.date.today()
+    payment = Payment(payment_amount = payment_amount, payment_number = payment_number, 
+    payment_method = payment_method, inovice = invoice, payment_date = payment_date)
+    payment.save()
+
+    return render(request, 'customer/confirmed.html')
