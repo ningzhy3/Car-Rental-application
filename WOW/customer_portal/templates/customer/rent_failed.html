@@ -1,28 +1,55 @@
 {% extends 'customer/base.html' %}
 {% block content %}
-<div class="w3-bar w3-large w3-black">
-  <div class="w3-bar-item w3-left w3-black">Customer Portal: {{user.username}}</div>
-  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/logout/">logout</a>
-  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/rent/">Rent a car</a>
-  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/return/">Return a car</a>
-  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/invoice/">Invoice</a>
-  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/auth/">Myhome</a>
-  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/profile/">Profile</a>
-  
-  <!-- <a class="w3-ber-item w3-btn w3-teal w3-right" href="/customer_portal/search/">Search for cars</a> -->
-</div>
+{% load static %}
 {% csrf_token %}
+<style>
+  .service{
+    font-weight:bold
+  }
+</style>
 
-<div class="w3-display-container" style="height:400px;">
+<form>
+  <div class="container" style="background-color:#f1f1f1">
+      <div class="imgcontainer">
+        <img src="{% static 'images/car003.jpeg' %}" alt="Avatar" class="avatar">
+      </div>
+      <p>Your current service is running </p>
+      <p><a href="/customer_portal/return/">Return</a> / 
+      <a href="/customer_portal/invoice/">Pay</a> 
+      before starting a new rent</p>
+  </div>
+
+  <div class="container">
+    <span>Current rental infomation</span>
+    <br><br>
+    Service id: <span class="service">{{rental_service.id}}</span><br><br>
+    Car type: <span class="service">{{vehicle_class.vehicle_type}}</span><br><br>
+    Start date: <span class="service">{{rental_service.p_date}}</span><br><br>
+    Return date: <span class="service">{{rental_service.d_date}}</span><br><br>
+    Cost/day: <span class="service">${{vehicle_class.rent_charge}}</span><br><br>
+
+    <!-- invoice_amount : {{invoice.invoice_amount}}<br><br> -->
+
+
+
+    <!-- <a class="w3-btn w3-teal" href="/customer_portal/register/">Individual</a>
+    <a class="w3-btn w3-teal" href="/customer_portal/register_corp/">Corporate</a>
+    
+    <span class="psw">Back <a href="/">Home</a></span> -->
+  </div> 
+
+</form>
+
+<!-- <div class="w3-display-container" style="height:400px;">
   <div class="w3-display-middle">
 
 
  <h3>Rent failed</h3> 
  
 
-<!-- duration : {{order.days}} days<br><br>
+duration : {{order.days}} days<br><br>
 car-dealer : {{order.car_dealer.car_dealer.first_name}} {{order.car_dealer.car_dealer.last_name}}<br><br>
-car-dealer contact no: {{order.car_dealer.mobile}}<br><br>  -->
+car-dealer contact no: {{order.car_dealer.mobile}}<br><br> 
 </div>
-</div>
+</div> -->
 {% endblock %}
