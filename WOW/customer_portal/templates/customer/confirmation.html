@@ -1,6 +1,5 @@
 {% extends 'customer/base.html' %}
 {% block content %}
-
 <style>
   form {
     margin: 0 auto;
@@ -9,18 +8,6 @@
   }
 </style>
 
-<div class="page-header">
-  <h1>World On Wheels</h1>
-</div>
-<div class="w3-center" style="color:#63667e;font-size:20px">
-  <a class="w3-bar-item w3-btn w3-center" href="/customer_portal/logout/">Logout</a>
-  <a class="w3-bar-item w3-btn w3-center" href="/customer_portal/auth/">Myhome</a>
-  <a class="w3-bar-item w3-btn w3-center" href="/customer_portal/rent/">Rent a car</a>
-  <a class="w3-bar-item w3-btn w3-center" href="/customer_portal/return/">Return a car</a>
-  <a class="w3-bar-item w3-btn w3-center" href="/customer_portal/invoice/">Invoice</a>
-  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/profile/">Profile</a>
-</div>
-<br><br>
 <form action="/customer_portal/confirmed/" method="post">
   {% csrf_token %}
 
