@@ -1,4 +1,24 @@
-{% extends 'customer/base.html'%}
+{% extends 'customer/base1.html'%}
 {% block content %}
-<p>username already exists, try using a different username. <a href="/customer_portal/login/">login page</a></p>
+<style>
+    form {
+        margin: 0 auto;
+        border: 10px solid #f1f1f1;
+        width:600px
+    }
+    .container {
+        padding: 16px;
+    }
+
+</style>
+
+<form>
+    <div class="container">
+        <p>
+            username already exists, try using a different username
+            <a href="/customer_portal/login/">Back</a>
+        </p>
+    </div>
+
+</form>
 {% endblock %}
