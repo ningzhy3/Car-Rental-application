@@ -117,8 +117,11 @@ def rent_vehicle(request):
     # return render(request, 'customer/rent_failed.html', )
     customer = Customer.objects.get(user = request.user)
     try: 
-        rental_service = Rental_service.objects.get(customer_id = customer) 
-        return render(request, 'customer/rent_failed.html', )
+        rental_service = Rental_service.objects.get(customer_id = customer)
+        vehicle = rental_service.vin
+        vehicle_class = Vehicle_class.objects.get(id = vehicle.vehicle_class_id)
+        # return render(request, 'customer/rent_failed.html', {'rental_service':rental_service}, {'vehicle_class':vehicle_class})
+        return render(request, 'customer/rent_failed.html', {'rental_service':rental_service, 'vehicle_class':vehicle_class})
     except:
         return render(request, 'customer/confirmation.html', )
 
@@ -218,7 +221,7 @@ def confirm(request):
     customer = Customer.objects.get(user = request.user)
     customer_id = customer.id 
 
-    days = request.POST['days']
+    # days = request.POST['days']
     p_location = Location.objects.get(city = request.POST['p_location'])
     d_location = Location.objects.get(city = request.POST['d_location'])
 
@@ -324,4 +327,5 @@ def profile(request):
     customer = Customer.objects.get(user = request.user)
     individual = Individual.objects.get(customer_ptr = customer)
 
-    return render(request, 'customer/profile.html',{'customer':customer},{'individual':individual})
+    # return render(request, 'customer/profile.html',{'customer':customer},{'individual':individual})
+    return render(request, 'customer/profile.html',{'individual':individual})
