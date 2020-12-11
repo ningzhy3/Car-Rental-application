@@ -19,6 +19,8 @@ urlpatterns = [
     url(r'^pay/',pay),
     url(r'^pay_confirmed/',pay_confirmed),
     url(r'^profile/',profile),
+    url(r'^invoice_failed/',invoice_failed),
+    
     # url(r'^manage/',manage),
     # url(r'^update/',update_order),
     # url(r'^delete/',delete_order),
