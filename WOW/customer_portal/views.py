@@ -145,10 +145,10 @@ def return_detail(request):
     rental_service = Rental_service.objects.get(customer_id = customer) 
     e_odometer = request.POST['e_odometer']
     #update rental_service table
-    rental_service.objects.filter(id=rental_service.id).update(e_odometer=e_odometer)
+    Rental_service.objects.filter(id=rental_service.id).update(e_odometer=e_odometer)
   
     vehicle = rental_service.vin
-    vehicle_class = Vehicle_class.objects.get(id = vehicle.vehicle_class)
+    vehicle_class = Vehicle_class.objects.get(id = vehicle.vehicle_class_id)
 
     rent_charge = vehicle_class.rent_charge
     extra_charge = vehicle_class.extra_charge
@@ -159,7 +159,7 @@ def return_detail(request):
 
     if customer.customer_type == 'I':
         individual = Individual.objects.get(user = request.user)
-        coupon = Coupon.objects.get(id = individual.coupon)
+        coupon = Coupon.objects.get(id = individual.coupon_id)
         discount = coupon.coupon_rate
     else:
         corporate = Corporate.objects.get(user = request.user)
@@ -220,7 +220,7 @@ def confirm(request):
 
     s_odometer = 0
     e_odometer = 0
-    d_odometer_limit = 0
+    d_odometer_limit = 100
     
     vehicle = Vehicle.objects.get(model = request.POST['model'])
 
