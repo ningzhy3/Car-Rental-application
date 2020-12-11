@@ -16,6 +16,8 @@ urlpatterns = [
     url(r'^return/',return_vehicle),
     url(r'^return_detail/',return_detail),
     url(r'^invoice/',invoice),
+    url(r'^pay/',pay),
+    url(r'^pay_confirmed/',pay_confirmed),
     # url(r'^manage/',manage),
     # url(r'^update/',update_order),
     # url(r'^delete/',delete_order),
