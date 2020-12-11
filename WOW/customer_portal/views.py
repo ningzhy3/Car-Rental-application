@@ -218,7 +218,7 @@ def confirm(request):
 
     s_odometer = 0
     e_odometer = 0
-    d_odometer_limit = 0
+    d_odometer_limit = 100
     
     vehicle = Vehicle.objects.get(model = request.POST['model'])
 
