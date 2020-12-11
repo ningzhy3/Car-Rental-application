@@ -158,7 +158,7 @@ def return_detail(request):
     d_odometer_limit = rental_service.d_odometer_limit
 
     if customer.customer_type == 'I':
-        individual = individual.objects.get(user = request.user)
+        individual = Individual.objects.get(user = request.user)
         coupon = Coupon.objects.get(id = individual.coupon)
         discount = coupon.coupon_rate
     else:
@@ -298,7 +298,7 @@ def pay_confirmed(request):
     customer = Customer.objects.get(user = request.user)
     rental_service = Rental_service.objects.get(customer_id = customer) 
     invoice = Invoice.objects.get(rental_service = rental_service)
-    
+
     payment_amount = invoice.invoice_amount
 
     payment_date = datetime.date.today()
@@ -307,3 +307,10 @@ def pay_confirmed(request):
     payment.save()
 
     return render(request, 'customer/confirmed.html')
+
+@login_required
+def profile(request):
+    customer = Customer.objects.get(user = request.user)
+    individual = Individual.objects.get(customer_ptr = customer)
+
+    return render(request, 'customer/profile.html',{'customer':customer},{'individual':individual})
