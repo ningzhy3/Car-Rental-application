@@ -1,0 +1,57 @@
+
+  {% extends 'customer/base.html' %}
+{% block content %}
+<div class="w3-bar w3-large w3-black">
+  <div class="w3-bar-item w3-left w3-black">Customer Portal: {{user.username}}</div>
+  <a class="w3-bar-item w3-right w3-btn w3-teal" href="/">Home</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/logout/">logout</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/rent/">Rent a car</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/return/">Return a car</a>
+  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/invoice/">Invoice</a>
+  
+  <!-- <a class="w3-ber-item w3-btn w3-teal w3-right" href="/customer_portal/search/">Search for cars</a> -->
+</div>
+{% csrf_token %}
+
+<div class="w3-display-container" style="height:400px;">
+  <div class="w3-display-middle">
+
+
+ <h3>Pay </h3> 
+
+ <form action="/customer_portal/pay_confirmed/" method="post">
+    {% csrf_token %}
+  
+    <div style="padding: 16px">
+  
+      <label for="payment_method"><b>payment_method</b></label>
+      <input class="w3-input" type="text" name="payment_method" required>
+      <br><br>
+      <label for="payment_number"><b>payment_number</b></label>
+      <input class="w3-input" type="text" name="payment_number" required>
+      <br><br>
+      <label for="payment_name"><b>payment_name</b></label>
+      <input class="w3-input" type="text" name="payment_name" required>
+      <br><br>
+      <input class="w3-btn w3-red" type="submit" value="confirm" ><br><br>
+      
+    </div>
+   <!-- <div class="container" style="background-color:#f1f1f1" style="width:400px">
+      <input class="w3-btn w3-red" type="submit" value="confirm" ><br><br>
+    </div> -->
+  </form>
+
+
+
+
+ 
+
+
+
+
+<!-- duration : {{order.days}} days<br><br>
+car-dealer : {{order.car_dealer.car_dealer.first_name}} {{order.car_dealer.car_dealer.last_name}}<br><br>
+car-dealer contact no: {{order.car_dealer.mobile}}<br><br>  -->
+</div>
+</div>
+{% endblock %}
