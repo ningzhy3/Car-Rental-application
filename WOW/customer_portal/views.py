@@ -80,10 +80,13 @@ def registration(request):
 
     customer = Customer(user = user, first_name = firstname, last_name = lastname, email = email, 
     city = city, state = state, zipcode = zipcode, street = street, customer_type = customertype)
+
     coupon = Coupon.objects.get(id=1)
+
     customer.save()
 
-    individual = Individual(user = user, customer_ptr = customer, dln = dln, ins_name = ins_name, ins_no = ins_no,coupon = coupon)
+    individual = Individual(user = user, first_name = firstname, last_name = lastname, email = email, 
+    city = city, state = state, zipcode = zipcode, street = street, customer_type = customertype, customer_ptr = customer, dln = dln, ins_name = ins_name, ins_no = ins_no,coupon = coupon)
 
     individual.save()
     return render(request, 'customer/registered.html')
@@ -130,6 +133,7 @@ def return_vehicle(request):
             invoice = Invoice.objects.get(rental_service = rental_service)
             return render(request, 'customer/return_failed.html')
         except:
+
             return render(request, 'customer/return.html', {'rental_service':rental_service})
     except:
         return render(request, 'customer/return_failed.html')
@@ -142,11 +146,7 @@ def return_detail(request):
     e_odometer = request.POST['e_odometer']
     #update rental_service table
     rental_service.objects.filter(id=rental_service.id).update(e_odometer=e_odometer)
-
-    
-    invoice = Invoice.objects.get(rental_service = rental_service)
-    
-
+  
     vehicle = rental_service.vin
     vehicle_class = Vehicle_class.objects.get(id = vehicle.vehicle_class)
 
@@ -166,7 +166,8 @@ def return_detail(request):
         corporation = Corporation.objects.get(id = corporate.corporation)
         discount = corporation.corp_discount
 
-    interval = rental_service.d_date - rental_service.p_date
+    # interval = rental_service.d_date - rental_service.p_date
+    interval = datetime.date.today() - rental_service.p_date
     days = interval.days
 
     if (e_odometer-s_odometer) > d_odometer_limit:
@@ -175,7 +176,6 @@ def return_detail(request):
         sum = days*rent_charge
 
     amount=discount*sum
-    
     
     # Rental_service.objects.filter(customer_id=customer).delete()
     date=datetime.date.today()
