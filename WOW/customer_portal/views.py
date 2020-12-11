@@ -189,13 +189,22 @@ def return_detail(request):
 
 @login_required
 def invoice(request):
-    
     customer = Customer.objects.get(user = request.user)
-    rental_service = Rental_service.objects.get(customer_id = customer) 
-    print(customer.id)
-    invoice = Invoice.objects.get(rental_service = rental_service)
+    try:
+        
+        rental_service = Rental_service.objects.get(customer_id = customer) 
+        try:
+            invoice = Invoice.objects.get(rental_service = rental_service)
+            return render(request, 'customer/invoice.html',{'invoice':invoice})
+        except:
+            return render(request, 'customer/invoice_failed.html')
+    except:
+            return render(request, 'customer/invoice_failed.html')        
 
-    return render(request, 'customer/invoice.html',{'invoice':invoice})
+@login_required
+def invoice_failed(request):
+    return render(request, 'customer/invoice_failed.html') 
+    
 
 @login_required
 def pay(request):
