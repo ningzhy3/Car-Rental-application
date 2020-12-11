@@ -1,25 +1,6 @@
 {% extends 'customer/base.html' %}
 {% block content %}
-
-<style>
-  form {
-    margin: 0 auto;
-    border: 10px solid #f1f1f1;
-    width:400px
-  }
-</style>
-
-<div class="page-header">
-  <h1>World On Wheels</h1>
-</div>
-<div class="w3-center" style="color:#63667e;font-size:20px">
-  <a class="w3-bar-item w3-btn w3-center" href="/customer_portal/logout/">Logout</a>
-  <a class="w3-bar-item w3-btn w3-center" href="/customer_portal/auth/">Myhome</a>
-  <a class="w3-bar-item w3-btn w3-center" href="/customer_portal/rent/">Rent a car</a>
-  <a class="w3-bar-item w3-btn w3-center" href="/customer_portal/return/">Return a car</a>
-  <a class="w3-bar-item w3-btn w3-center" href="/customer_portal/invoice/">Invoice</a>
-  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/profile/">Profile</a>
-</div>
+{% load static %}
 
 
 <!-- <div class="w3-bar w3-large w3-black">
@@ -39,17 +20,21 @@
   <div class="w3-display-middle">
 
 
-  <h1>Return Car</h1> 
+  <!-- <h1>Return Car</h1>  -->
   
   <!-- service_id : {{rental_service.id}}<br><br> -->
 
   <form class="w3-container" action="/customer_portal/return_detail/" method="POST">{% csrf_token %}
 
+    <div class="imgcontainer">
+      <img src="{% static 'images/car001.jpeg' %}" alt="Avatar" class="avatar">
+    </div>
+
     <p>Your Service Infomation</p> 
     service_id : {{rental_service.id}}<br><br>
     <lable>Please enter current odometer :</lable> 
     <input class="w3-input" type="text" name="e_odometer"><br><br>
-    <input class="w3-btn w3-teal" type="submit">
+    <input class="w3-btn w3-teal" type="submit" value="return">
   </form>
   <br><br>
   <!-- duration : {{order.days}} days<br><br>
