@@ -141,7 +141,6 @@ def return_vehicle(request):
             invoice = Invoice.objects.get(rental_service = rental_service)
             return render(request, 'customer/return_failed.html')
         except:
-
             return render(request, 'customer/return.html', {'rental_service':rental_service})
     except:
         return render(request, 'customer/return_failed.html')
@@ -179,12 +178,11 @@ def return_detail(request):
     days = interval.days
 
     if (e_odometer-s_odometer) > d_odometer_limit:
-        sum = days*rent_charge+extra_charge*(e_odometer-s_odometer)
+        sum = days*rent_charge + extra_charge*(e_odometer-s_odometer)
     else:
         sum = days*rent_charge
 
     amount=discount*sum
-    
     # Rental_service.objects.filter(customer_id=customer).delete()
     date=datetime.date.today()
 
@@ -199,14 +197,15 @@ def return_detail(request):
 def invoice(request):
     customer = Customer.objects.get(user = request.user)
     try:
-        
         rental_service = Rental_service.objects.get(customer_id = customer) 
         try:
             invoice = Invoice.objects.get(rental_service = rental_service)
-            return render(request, 'customer/invoice.html',{'invoice':invoice})
+            return render(request, 'customer/invoice.html',{'rental_service':rental_service, 'invoice':invoice})
         except:
+            print(1)
             return render(request, 'customer/invoice_failed.html')
     except:
+            print(2)
             return render(request, 'customer/invoice_failed.html')        
 
 @login_required
@@ -216,8 +215,10 @@ def invoice_failed(request):
 
 @login_required
 def pay(request):
-    
-    return render(request, 'customer/pay.html')
+    customer = Customer.objects.get(user = request.user)
+    rental_service = Rental_service.objects.get(customer_id = customer)
+    invoice = Invoice.objects.get(rental_service = rental_service)
+    return render(request, 'customer/pay.html',{'invoice':invoice})
     
 
 @login_required
@@ -244,8 +245,10 @@ def confirm(request):
     e_odometer = e_odometer, vin = vehicle, d_odometer_limit = d_odometer_limit)
 
     rental_service.save()
+    vehicle = rental_service.vin
+    vehicle_class = Vehicle_class.objects.get(id = vehicle.vehicle_class_id)
 
-    return render(request, 'customer/confirmed.html')
+    return render(request, 'customer/confirmed.html',{'rental_service':rental_service, 'vehicle_class':vehicle_class})
 
     # if vehicle.is_available:
     #     car_dealer = vehicle.dealer
@@ -308,6 +311,7 @@ def confirm(request):
 
 @login_required
 def pay_confirmed(request):
+
     payment_number = request.POST.get('payment_number')
     payment_method = request.POST.get('payment_method')
     payment_name = request.POST.get('payment_name')
@@ -325,7 +329,7 @@ def pay_confirmed(request):
 
     Rental_service.objects.filter(customer_id=customer).delete()
 
-    return render(request, 'customer/confirmed.html')
+    return render(request, 'customer/pay_confirm.html')
 
 @login_required
 def profile(request):
