@@ -1,0 +1,32 @@
+{% extends 'customer/base.html' %}
+{% block content %}
+{% load static %}
+
+<style>
+  form {
+    margin: 0 auto;
+    border: 10px solid #f1f1f1;
+    width:500px
+  }
+  .container {
+    padding: 16px;
+  }
+</style>
+
+{% csrf_token %}
+<form>
+
+  <div class="imgcontainer">
+    <img src="{% static 'images/car001.jpeg' %}" alt="Avatar" class="avatar">
+  </div>
+  
+  <div class="container">
+      <p>Payment Successfully! Thank you!</p>
+      <p>We hope to see you soon! </p><a href="/customer_portal/auth/">Back Home<a></a>
+      <p></p>
+  </div>
+
+</form>
+
+
+{% endblock %}
