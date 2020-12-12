@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 import datetime
 # Create your views here.
+from django.shortcuts import redirect
 
 def index(request):
     if not request.user.is_authenticated:
@@ -32,7 +33,11 @@ def auth_view(request):
             customer = None
         if customer is not None:
             auth.login(request, user)
-            return render(request, 'customer/home_page.html')
+            if user.is_superuser: 
+                return redirect('customer/admin/')
+
+            else :
+                return render(request, 'customer/home_page.html')
         else:
             return render(request, 'customer/login_failed.html')
 
