@@ -1,5 +1,6 @@
 {% extends 'customer/base.html' %}
 {% block content %}
+{% load static %}
 
 <style>
   form {
@@ -12,21 +13,21 @@
   }
 </style>
 
-<!-- <div class="page-header">
-  <h1>World On Wheels</h1>
-</div>
-<div class="w3-center" style="color:#63667e;font-size:20px">
-  <a class="w3-bar-item w3-btn w3-center" href="/customer_portal/logout/">Logout</a>
-  <a class="w3-bar-item w3-btn w3-center" href="/customer_portal/auth/">Myhome</a>
-  <a class="w3-bar-item w3-btn w3-center" href="/customer_portal/rent/">Rent a car</a>
-  <a class="w3-bar-item w3-btn w3-center" href="/customer_portal/return/">Return a car</a>
-  <a class="w3-bar-item w3-btn w3-center" href="/customer_portal/invoice/">Invoice</a>
-  <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/profile/">Profile</a>
-</div> -->
+{% csrf_token %}
 
+<form>
 
+  <div class="imgcontainer">
+    <img src="{% static 'images/car001.jpeg' %}" alt="Avatar" class="avatar">
+  </div>
+  
+  <div class="container">
+      <p>No invoice found</p>
+      <p>Click <a href="/customer_portal/rent/">here<a> to start your rental service</p>
+      <p></p>
+  </div>
 
-
+</form>
 
 
 
@@ -44,17 +45,17 @@
   <a class="w3-bar-item w3-btn w3-teal w3-right" href="/customer_portal/auth/">Myhome</a>
   <a class="w3-ber-item w3-btn w3-teal w3-right" href="/customer_portal/search/">Search for cars</a>
 </div> -->
-{% csrf_token %}
+<!-- {% csrf_token %}
 
 <div class="w3-display-container" style="height:400px;">
   <div class="w3-display-middle">
-<h3>Failed</h3>
+<h3>Failed</h3> -->
 <!-- Your vehicle order was successful !<br><br>
 total rent : {{order.rent}} Rs.<br><br>
 vehicle : {{order.vehicle.car_name}}<br><br>
 duration : {{order.days}} days<br><br>
 car-dealer : {{order.car_dealer.car_dealer.first_name}} {{order.car_dealer.car_dealer.last_name}}<br><br>
 car-dealer contact no: {{order.car_dealer.mobile}}<br><br> -->
-</div>
-</div>
+<!-- </div>
+</div> -->
 {% endblock %}
