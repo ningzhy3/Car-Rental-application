@@ -26,6 +26,8 @@ urlpatterns = [
     url(r'^pay/',pay),
     url(r'^pay_confirmed/',pay_confirmed),
     url(r'^profile/',profile),
+    url(r'^edit/',edit),
+    url(r'^update/',update),
     url(r'^invoice_failed/',invoice_failed),
     url('admin/', lambda x: HttpResponseRedirect('http://localhost:8000/admin/')),
     
