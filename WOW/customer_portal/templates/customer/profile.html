@@ -1,32 +1,35 @@
 {% extends 'customer/base.html' %}
 {% block content %}
-
+{% csrf_token %}
 <style>
   form {
     margin: 0 auto;
-    border: 10px solid #f1f1f1;
-    width:600px
+    border: 12px solid #f1f1f1;
+    width:500px
   }
   .container {
     padding: 16px;
   }
 </style>
 
-<!-- <div class="w3-container w3-teal">
-  <h1 class="w3-center">Welcom to WOW Family<h1>
-</div> -->
 
-<div class="w3-bar">
-  <a class="w3-bar-item w3-right w3-btn w3-teal" href="/customer_portal/login/">Login</a>
-  <a class="w3-bar-item w3-right w3-btn w3-teal" href="/">Home</a>
-</div>
+<form action="/customer_portal/registration/" method="POST">
+
+    <div class="container" style="font-weight: bold;">
+        <p>Username: {{user.username}}</p><hr>
+        <p>First Name: {{individual.first_name}}</p><hr>
+        <p>Last Name: {{individual.last_name}}</p><hr>
+        <p>Phone: {{individual.phone}}</p><hr>
+        <p>email: {{individual.email}}</p><hr>
+        <p>Address: {{individual.street}}, {{individual.city}}, {{individual.state}}, {{individual.zipcode}}</p><hr>
+        <p>Customer Type: {{individual.customer_type}}</p><hr>
+        <p>Driver Licience: {{individual.dln}}</p><hr>
+        <p>Insurance Name: {{individual.ins_name}}</p><hr>
+        <p>Insurance Number: {{individual.ins_no}}</p><hr>
+    </div>
 
 
-<h3 style="text-align: center;">Sign Up</h3>
-
-<form action="/customer_portal/registration/" method="POST">{% csrf_token %}
-
-  <div class="container">
+  <!-- <div class="container">
     <label for="username"><b>Username</b></label>
     <input class="w3-input" type="text" placeholder="Enter Username" name="username" required>
     <br>
@@ -75,7 +78,7 @@
 
   <div class="container" style="background-color:#f1f1f1">
     <input class="w3-btn w3-teal" type="submit"><br><br>
-  </div>
+  </div> -->
 </form>
 
 
