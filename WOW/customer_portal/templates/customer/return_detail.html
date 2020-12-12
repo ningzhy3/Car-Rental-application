@@ -1,17 +1,61 @@
 {% extends 'customer/base.html' %}
 {% block content %}
+{% load static %}
 {% csrf_token %}
 
-<div class="w3-display-container" style="height:400px;">
-  <div class="w3-display-middle">
+<style>
+  form {
+    margin: 0 auto;
+    border: 10px solid #f1f1f1;
+    width:500px
+  }
+  .container {
+    padding: 16px;
+  }
+</style>
+
+<form>
+
+  <div class="imgcontainer">
+    <img src="{% static 'images/car001.jpeg' %}" alt="Avatar" class="avatar">
+  </div>
+  
+  <div class="container">
+      <p>Return Successful! Thank you!</p>
+      <p>
+        Back <a href="/customer_portal/auth/">Home</a> or check <a href="/customer_portal/invoice/">invoice</a>
+      </p>
+      <p></p>
+  </div>
+
+</form>
 
 
- <h3>Return Sucessful</h3> 
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="w3-display-container" style="height:400px;">
+  <div class="w3-display-middle"> -->
+
+
+
+
+
+
+
+    <!-- <h3>Return Sucessful</h3> 
  
 
-<!-- duration : {{order.days}} days<br><br>
-car-dealer : {{order.car_dealer.car_dealer.first_name}} {{order.car_dealer.car_dealer.last_name}}<br><br>
-car-dealer contact no: {{order.car_dealer.mobile}}<br><br>  -->
+  duration : {{order.days}} days<br><br>
+  car-dealer : {{order.car_dealer.car_dealer.first_name}} {{order.car_dealer.car_dealer.last_name}}<br><br>
+  car-dealer contact no: {{order.car_dealer.mobile}}<br><br> 
 </div>
-</div>
+</div> -->
 {% endblock %}
