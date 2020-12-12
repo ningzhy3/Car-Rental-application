@@ -55,6 +55,7 @@ def registration(request):
     firstname = request.POST['first_name']
     lastname = request.POST['last_name']
     email = request.POST['email']
+    phone = request.POST['phone']
     city = request.POST['city']
     city = city.lower()
     state = request.POST['state']
@@ -83,14 +84,14 @@ def registration(request):
     #     area.save()
     #     area = Area.objects.get(city = city, pincode = pincode)
 
-    customer = Customer(user = user, first_name = firstname, last_name = lastname, email = email, 
+    customer = Customer(user = user, first_name = firstname, last_name = lastname, email = email, phone = phone,
     city = city, state = state, zipcode = zipcode, street = street, customer_type = customertype)
 
     coupon = Coupon.objects.get(id=1)
 
     customer.save()
 
-    individual = Individual(user = user, first_name = firstname, last_name = lastname, email = email, 
+    individual = Individual(user = user, first_name = firstname, last_name = lastname, email = email, phone = phone,
     city = city, state = state, zipcode = zipcode, street = street, customer_type = customertype, customer_ptr = customer, dln = dln, ins_name = ins_name, ins_no = ins_no,coupon = coupon)
 
     individual.save()
@@ -335,6 +336,49 @@ def pay_confirmed(request):
 def profile(request):
     customer = Customer.objects.get(user = request.user)
     individual = Individual.objects.get(customer_ptr = customer)
+
+    # return render(request, 'customer/profile.html',{'customer':customer},{'individual':individual})
+    return render(request, 'customer/profile.html',{'individual':individual})
+
+@login_required
+def edit(request):
+    customer = Customer.objects.get(user = request.user)
+    individual = Individual.objects.get(customer_ptr = customer)
+    # return render(request, 'customer/profile.html',{'customer':customer},{'individual':individual})
+
+    return render(request, 'customer/edit.html',{'individual':individual})
+
+@login_required
+def update(request):
+    customer = Customer.objects.get(user = request.user)
+    individual = Individual.objects.get(customer_ptr = customer)
+
+    # username = request.POST['username']
+    # password = request.POST['password']
+    
+    firstname = request.POST['first_name']
+    lastname = request.POST['last_name']
+    phone = request.POST['phone']
+    email = request.POST['email']
+    city = request.POST['city']
+    city = city.lower()
+    state = request.POST['state']
+    zipcode = request.POST['zipcode']
+    street = request.POST['street']
+    customertype = request.POST['customer_type']
+
+    dln = request.POST['dln']
+    ins_name = request.POST['ins_name']
+    ins_no = request.POST['ins_no']
+    try:
+        # user = User.objects.create_user(username = username, password = password, email = email)
+        Individual.objects.filter(id=individual.id).update(first_name = firstname, last_name = lastname, email = email, phone = phone,
+        city = city, state = state, zipcode = zipcode, street = street, customer_type = customertype, customer_ptr = customer, 
+        dln = dln, ins_name = ins_name, ins_no = ins_no)
+        customer = Customer.objects.get(user = request.user)
+        individual = Individual.objects.get(customer_ptr = customer)
+    except:
+        return render(request, 'customer/profile.html')
 
     # return render(request, 'customer/profile.html',{'customer':customer},{'individual':individual})
     return render(request, 'customer/profile.html',{'individual':individual})
