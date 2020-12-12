@@ -13,10 +13,10 @@
 </style>
 
 
-<form action="/customer_portal/registration/" method="POST">
+<form action="/customer_portal/edit/" method="POST">{% csrf_token %}
 
     <div class="container" style="font-weight: bold;">
-        <p>Username: {{user.username}}</p><hr>
+
         <p>First Name: {{individual.first_name}}</p><hr>
         <p>Last Name: {{individual.last_name}}</p><hr>
         <p>Phone: {{individual.phone}}</p><hr>
@@ -26,6 +26,10 @@
         <p>Driver Licience: {{individual.dln}}</p><hr>
         <p>Insurance Name: {{individual.ins_name}}</p><hr>
         <p>Insurance Number: {{individual.ins_no}}</p><hr>
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+        <input class="w3-btn w3-teal" type="submit" value="Edit"><br><br>
     </div>
 
 
