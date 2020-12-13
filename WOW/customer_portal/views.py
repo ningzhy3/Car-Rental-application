@@ -175,7 +175,7 @@ def return_detail(request):
         discount = corporation.corp_discount
 
     # interval = rental_service.d_date - rental_service.p_date
-    interval = datetime.date.today() - rental_service.p_date
+    interval = rental_service.d_date - rental_service.p_date
     days = interval.days
 
     if (e_odometer-s_odometer) > d_odometer_limit:
@@ -319,6 +319,8 @@ def pay_confirmed(request):
     customer = Customer.objects.get(user = request.user)
     rental_service = Rental_service.objects.get(customer_id = customer) 
     invoice = Invoice.objects.get(rental_service = rental_service)
+    vehicle = rental_service.vin
+    vehicle_class = Vehicle_class.objects.get(id = vehicle.vehicle_class_id)
 
     payment_amount = invoice.invoice_amount
 
@@ -328,17 +330,21 @@ def pay_confirmed(request):
     payment.save()
 
     rental_history = Rental_History(
-        payment = payment,
+        amount = payment_amount,
         p_date = rental_service.p_date,
         d_date = rental_service.d_date,
         s_odometer = rental_service.s_odometer,
         e_odometer = rental_service.e_odometer,
+        d_odometer_limit = rental_service.d_odometer_limit,
         p_location = rental_service.p_location,
         d_location = rental_service.d_location,
+        vehicle_type=vehicle_class.vehicle_type,
+        payment_method = payment_method,
+        i_date = invoice.invoice_date,
 
-        vin = rental_service.vin,
+        # vin = rental_service.vin,
         customer = rental_service.customer_id,
-        invoice = invoice
+        # invoice = invoice
     )
     rental_history.save()
 
@@ -351,9 +357,10 @@ def pay_confirmed(request):
 def profile(request):
     customer = Customer.objects.get(user = request.user)
     individual = Individual.objects.get(customer_ptr = customer)
+    coupon = Coupon.objects.get(id = individual.coupon_id)
 
     # return render(request, 'customer/profile.html',{'customer':customer},{'individual':individual})
-    return render(request, 'customer/profile.html',{'individual':individual})
+    return render(request, 'customer/profile.html',{'individual':individual, 'coupon':coupon})
 
 @login_required
 def edit(request):
@@ -397,3 +404,13 @@ def update(request):
 
     # return render(request, 'customer/profile.html',{'customer':customer},{'individual':individual})
     return render(request, 'customer/profile.html',{'individual':individual})
+
+
+@login_required
+def order_detailed(request):
+    customer = Customer.objects.get(user = request.user)
+    rental_history = Rental_History.objects.filter(customer_id=customer)
+    if rental_history:
+        return render(request, 'customer/order.html', {'rental_history':rental_history})
+    else:
+        return render(request, 'customer/order.html', {'error': 'No order found.'})
