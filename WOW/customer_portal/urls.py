@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^edit/',edit),
     url(r'^update/',update),
     url(r'^invoice_failed/',invoice_failed),
+    url(r'^order/',order_detailed),
     url('admin/', lambda x: HttpResponseRedirect('http://localhost:8000/admin/')),
     
     # url(r'^manage/',manage),
