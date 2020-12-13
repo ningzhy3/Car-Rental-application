@@ -1,0 +1,50 @@
+{% extends 'customer/base.html' %}
+{% block content %}
+{% csrf_token %}
+<style>
+  form {
+    margin: 0 auto;
+    border: 12px solid #f1f1f1;
+    width:500px
+  }
+  .container {
+    padding: 16px;
+  }
+</style>
+
+{% if error %}
+    <!-- {{ error }} -->
+    <!-- <p>test003</p> -->
+    <form>
+        <div class="container">
+            <p>No Order History Exist</p>
+            <p>Click <a href="/customer_portal/rent/">here<a> to start your rental service</p>
+            <p></p>
+        </div>
+    </form>
+{% else %}
+    {% for item in rental_history %}
+    <form>{% csrf_token %}
+
+        <div class="container" style="font-weight: bold;">
+    
+            <p>Order ID: {{item.id}}</p><hr>
+            <p>Pick-up Date: {{item.p_date}}</p><hr>
+            <p>Drop-off Date: {{item.d_date}}</p><hr>
+            <p>Return Date: {{item.i_date}}</p><hr>
+            <p>Car type: {{item.vehicle_type}}</p><hr>
+            <p>Invoice Amount: {{item.amount}}</p><hr>
+        </div>
+    </form>
+    {% endfor %}
+{% endif %}
+
+<!-- {% for item in rental_history %}
+  <div class="container" style="font-weight: bold;">
+
+    <p>s_odometer: {{item.s_odometer}}</p><hr>
+    <p>e_odometer: {{item.e_odometer}}</p><hr>
+  </div>
+{% endfor %} -->
+
+{% endblock %}
