@@ -121,11 +121,14 @@ class Rental_History(models.Model):
     s_odometer = models.FloatField()
     e_odometer = models.FloatField()
     d_odometer_limit = models.FloatField()
+    vehicle_type = models.CharField(max_length=30)
+    amount = models.FloatField()
+    payment_method = models.CharField(max_length=30)
+    i_date = models.DateField()
 
     p_location = models.ForeignKey(Location,on_delete=models.SET_NULL, null=True,related_name='his_p_loaction')
     d_location = models.ForeignKey(Location,on_delete=models.SET_NULL, null=True,related_name='his_d_loaction')
-    vin = models.ForeignKey(Vehicle,on_delete=models.SET_NULL, null=True)
-
-    invoice = models.ForeignKey(Invoice,on_delete=models.SET_NULL, null=True)
+    # vin = models.ForeignKey(Vehicle,on_delete=models.SET_NULL, null=True)
+    # invoice = models.ForeignKey(Invoice,on_delete=models.SET_NULL, null=True)
     payment = models.ForeignKey(Payment,on_delete=models.SET_NULL, null=True)
     customer = models.ForeignKey(Customer,on_delete=models.SET_NULL, null=True)
