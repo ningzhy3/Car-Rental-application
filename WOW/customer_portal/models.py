@@ -115,3 +115,17 @@ class Individual(Customer):
 
     coupon = models.ForeignKey(Coupon,on_delete=models.SET_NULL, null=True)
 
+class Rental_History(models.Model):
+    p_date = models.DateField()
+    d_date = models.DateField()
+    s_odometer = models.FloatField()
+    e_odometer = models.FloatField()
+    d_odometer_limit = models.FloatField()
+
+    p_location = models.ForeignKey(Location,on_delete=models.SET_NULL, null=True,related_name='his_p_loaction')
+    d_location = models.ForeignKey(Location,on_delete=models.SET_NULL, null=True,related_name='his_d_loaction')
+    vin = models.ForeignKey(Vehicle,on_delete=models.SET_NULL, null=True)
+
+    invoice = models.ForeignKey(Invoice,on_delete=models.SET_NULL, null=True)
+    payment = models.ForeignKey(Payment,on_delete=models.SET_NULL, null=True)
+    customer = models.ForeignKey(Customer,on_delete=models.SET_NULL, null=True)
