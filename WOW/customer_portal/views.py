@@ -327,6 +327,21 @@ def pay_confirmed(request):
     payment_method = payment_method, inovice = invoice, payment_date = payment_date)
     payment.save()
 
+    rental_history = Rental_History(
+        payment = payment,
+        p_date = rental_service.p_date,
+        d_date = rental_service.d_date,
+        s_odometer = rental_service.s_odometer,
+        e_odometer = rental_service.e_odometer,
+        p_location = rental_service.p_location,
+        d_location = rental_service.d_location,
+
+        vin = rental_service.vin,
+        customer = rental_service.customer_id,
+        invoice = invoice
+    )
+    rental_history.save()
+
 
     Rental_service.objects.filter(customer_id=customer).delete()
 
