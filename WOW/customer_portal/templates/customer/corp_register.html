@@ -1,0 +1,73 @@
+{% extends 'customer/base1.html' %}
+{% block content %}
+
+<style>
+  form {
+    margin: 0 auto;
+    border: 10px solid #f1f1f1;
+    width:600px
+  }
+  .container {
+    padding: 16px;
+  }
+</style>
+
+<div class="w3-bar">
+  <a class="w3-bar-item w3-right w3-btn w3-teal" href="/customer_portal/login/">Login</a>
+  <a class="w3-bar-item w3-right w3-btn w3-teal" href="/">Home</a>
+</div>
+
+
+<h3 style="text-align: center;">Sign Up</h3>
+
+<form action="/customer_portal/corp_registration/" method="POST">{% csrf_token %}
+  <div class="container">
+    <label for="username"><b>Username</b></label>
+    <input class="w3-input" type="text" placeholder="Enter Username" name="username" required>
+    <br>
+    <label for="first_name"><b>First Name</b></label>
+    <input class="w3-input" type="text" placeholder="Enter First Name" name="first_name" required>
+    <br>
+    <label for="last_name"><b>Last Name</b></label>
+    <input class="w3-input" type="text" placeholder="Enter Last Name" name="last_name" required>
+    <br>
+    <label for="password"><b>Password</b></label>
+    <input class="w3-input" type="password" placeholder="Set Password" name="password" required>
+     <br>
+    <label for="customer_type"><b>Type</b></label>
+    <input class="w3-input" type="text" value="C" name="customer_type" required>
+    <br>
+    <label for="email"><b>Email Address</b></label>
+    <input class="w3-input" type="text" placeholder="Enter Email" name="email" required>
+    <br>
+    <label for="phone"><b>Phone</b></label>
+    <input class="w3-input" type="text" placeholder="Enter Phone" name="phone" required>
+    <br>
+    <label for="street"><b>Street</b></label>
+    <input class="w3-input" type="text" placeholder="Enter Street" name="street" required>
+    <br>
+    <label for="city"><b>City</b></label>
+    <input class="w3-input" type="text" placeholder="Enter City" name="city" required>
+    <br>
+    <label for="state"><b>State</b></label>
+    <input class="w3-input" type="text" placeholder="Enter State" name="state" required>
+    <br>
+    <label for="zipcode"><b>Zipcode</b></label>
+    <input class="w3-input" type="text" placeholder="Enter Zipcode" name="zipcode" required>
+    <br>
+    <label for="employee_ID"><b>Employee ID</b></label>
+    <input class="w3-input" type="text" placeholder="Enter ID" name="employee_ID" required>
+    <br>
+    <label for="copr_name"><b>Corporation Name</b></label>
+    <input class="w3-input" type="text" placeholder="Enter Name" name="copr_name" required>
+    <br>
+    <label for="registration_number"><b>Registration Number</b></label>
+    <input class="w3-input" type="text" placeholder="Enter Number" name="registration_number" required>
+    <br>
+  </div>
+
+  <div class="container" style="background-color:#f1f1f1">
+    <input class="w3-btn w3-teal" type="submit"><br><br>
+  </div>
+</form>
+{% endblock %}
