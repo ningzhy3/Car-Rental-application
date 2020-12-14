@@ -129,7 +129,8 @@ def rent_vehicle(request):
         # return render(request, 'customer/rent_failed.html', {'rental_service':rental_service}, {'vehicle_class':vehicle_class})
         return render(request, 'customer/rent_failed.html', {'rental_service':rental_service, 'vehicle_class':vehicle_class})
     except:
-        return render(request, 'customer/confirmation.html', )
+        # return render(request, 'customer/confirmation.html', )
+        return render(request, 'customer/location.html', )
 
 
 @login_required
@@ -229,13 +230,13 @@ def confirm(request):
     customer_id = customer.id 
 
     # days = request.POST['days']
-    p_location = Location.objects.get(city = request.POST['p_location'])
-    d_location = Location.objects.get(city = request.POST['d_location'])
+    p_location = Location.objects.get(street_address = request.POST['p_location'])
+    d_location = Location.objects.get(street_address = request.POST['d_location'])
 
     p_date = request.POST['p_date']
     d_date = request.POST['d_date']
 
-    s_odometer = 0
+    s_odometer = 20000
     e_odometer = 0
     d_odometer_limit = 100
     
@@ -387,23 +388,27 @@ def update(request):
     state = request.POST['state']
     zipcode = request.POST['zipcode']
     street = request.POST['street']
-    customertype = request.POST['customer_type']
+    # customertype = request.POST['customer_type']
 
     dln = request.POST['dln']
     ins_name = request.POST['ins_name']
     ins_no = request.POST['ins_no']
     try:
         # user = User.objects.create_user(username = username, password = password, email = email)
+        # Individual.objects.filter(id=individual.id).update(first_name = firstname, last_name = lastname, email = email, phone = phone,
+        # city = city, state = state, zipcode = zipcode, street = street, customer_type = customertype, customer_ptr = customer, 
+        # dln = dln, ins_name = ins_name, ins_no = ins_no)
         Individual.objects.filter(id=individual.id).update(first_name = firstname, last_name = lastname, email = email, phone = phone,
-        city = city, state = state, zipcode = zipcode, street = street, customer_type = customertype, customer_ptr = customer, 
+        city = city, state = state, zipcode = zipcode, street = street, customer_ptr = customer, 
         dln = dln, ins_name = ins_name, ins_no = ins_no)
         customer = Customer.objects.get(user = request.user)
         individual = Individual.objects.get(customer_ptr = customer)
+        coupon = Coupon.objects.get(id = individual.coupon_id)
     except:
         return render(request, 'customer/profile.html')
 
     # return render(request, 'customer/profile.html',{'customer':customer},{'individual':individual})
-    return render(request, 'customer/profile.html',{'individual':individual})
+    return render(request, 'customer/profile.html',{'individual':individual, 'coupon':coupon})
 
 
 @login_required
@@ -414,3 +419,56 @@ def order_detailed(request):
         return render(request, 'customer/order.html', {'rental_history':rental_history})
     else:
         return render(request, 'customer/order.html', {'error': 'No order found.'})
+
+def corp(request):
+    return render(request, 'customer/corp_register.html')
+
+def corp_registration(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    
+    firstname = request.POST['first_name']
+    lastname = request.POST['last_name']
+    email = request.POST['email']
+    phone = request.POST['phone']
+    city = request.POST['city']
+    city = city.lower()
+    state = request.POST['state']
+    zipcode = request.POST['zipcode']
+    street = request.POST['street']
+    customertype = request.POST['customer_type']
+
+    dln = request.POST['dln']
+    ins_name = request.POST['ins_name']
+    ins_no = request.POST['ins_no']
+    try:
+        user = User.objects.create_user(username = username, password = password, email = email)
+        user.first_name = firstname
+        user.last_name = lastname
+        user.save()
+    except:
+        return render(request, 'customer/registration_error.html')
+
+    customer = Customer(user = user, first_name = firstname, last_name = lastname, email = email, phone = phone,
+    city = city, state = state, zipcode = zipcode, street = street, customer_type = customertype)
+
+    coupon = Coupon.objects.get(id=1)
+
+    customer.save()
+
+    individual = Individual(user = user, first_name = firstname, last_name = lastname, email = email, phone = phone,
+    city = city, state = state, zipcode = zipcode, street = street, customer_type = customertype, customer_ptr = customer, dln = dln, ins_name = ins_name, ins_no = ins_no,coupon = coupon)
+
+    individual.save()
+    return render(request, 'customer/registered.html')
+
+def location(request):
+    username = request.user
+    customer = Customer.objects.get(user = request.user)
+    customer_id = customer.id
+    p_location = Location.objects.get(street_address = request.POST['p_location'])
+    if p_location:
+        vehicle = Vehicle.objects.filter(location_id = p_location.id)
+        return render(request, 'customer/confirmation.html', {'p_location':p_location, 'vehicle':vehicle})
+    else:
+        return render(request, 'customer/confirmation.html', {'error': 'No order found.'})
