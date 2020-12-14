@@ -12,9 +12,6 @@
   }
 </style>
 
-<!-- <div class="w3-container w3-teal">
-  <h1 class="w3-center">Welcom to WOW Family<h1>
-</div> -->
 
 <div class="w3-bar">
   <a class="w3-bar-item w3-right w3-btn w3-teal" href="/customer_portal/login/">Login</a>
@@ -40,7 +37,7 @@
     <input class="w3-input" type="password" placeholder="Set Password" name="password" required>
      <br>
     <label for="customer_type"><b>Type</b></label>
-    <input class="w3-input" type="text" placeholder="Enter Type" name="customer_type" required>
+    <input class="w3-input" type="text" value="I" name="customer_type" required>
     <br>
     <label for="email"><b>Email Address</b></label>
     <input class="w3-input" type="text" placeholder="Enter Email" name="email" required>
@@ -69,54 +66,10 @@
     <label for="ins_no"><b>Insurance number</b></label>
     <input class="w3-input" type="text" placeholder="Enter number" name="ins_no" required>
     <br>
-    
-
   </div>
 
   <div class="container" style="background-color:#f1f1f1">
     <input class="w3-btn w3-teal" type="submit"><br><br>
   </div>
 </form>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <div class="w3-bar">
-  <h3 class="w3-bar-item w3-left">Registration Form</h3>
-  <a class="w3-bar-item w3-right w3-btn w3-teal" href="/customer_portal/login/">Login</a>
-  <a class="w3-bar-item w3-right w3-btn w3-teal" href="/">Home</a>
-</div>
-
-<div class="w3-display-container"  style="height:1000px;">
-<div class="w3-display-middle">
-
-<form class="w3-container" action="/customer_portal/registration/" method="POST">{% csrf_token %}
-  <lable>FirstName : </lable><input class="w3-input" type="text" name="first_name"><br><br>
-  <lable>LastName : </lable><input class="w3-input" type="text" name="last_name"><br><br>
-  <lable>Username : </lable><input class="w3-input" type="text" name="username"><br><br>
-  <lable>Password : </lable><input class="w3-input" type="password" name="password"><br><br>
-  <lable>Email : </lable><input class="w3-input" type="text" name="email"><br><br>
-  <lable>Street : </lable><input class="w3-input" type="text" name="street"><br><br>
-  <lable>Zipcode : </lable><input class="w3-input" type="text" name="zipcode"><br><br>
-  <lable>CustomerType : </lable><input class="w3-input" type="text" name="customer_type"><br><br>
-  <lable>State : </lable><input class="w3-input" type="text" name="state"><br><br>
-  <lable>Phone : </lable><input class="w3-input" type="text" name="phone"><br><br>
-  <lable>City : </lable><input class="w3-input" type="text" name="city"><br><br>
-  <input class="w3-btn w3-teal" type="submit"><br><br>
-</form>
-
-</div>
-</div> -->
 {% endblock %}
