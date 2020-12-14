@@ -35,14 +35,6 @@
     width:500px
   }
 
-  /* input[type=text] {
-    width: 100%;
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 2px;
-  } */
-
   label {
     margin-bottom: 10px;
     display: block;
@@ -83,15 +75,15 @@
     color: grey;
   }
 
-  /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
-  @media (max-width: 800px) {
+  
+  /* @media (max-width: 800px) {
     .row {
       flex-direction: column-reverse;
     }
     .col-25 {
       margin-bottom: 20px;
     }
-  }
+  } */
 </style>
 
 <div class="row">
@@ -117,19 +109,19 @@
             </select>
             <!-- <input class="w3-input" type="text" name="payment_method" required> -->
             <label for="payment_name">Card Holder Name</label>
-            <input class="w3-input" type="text" name="payment_name" required>
+            <input class="w3-input" type="text" name="payment_name" placeholder="Your Name" required>
             <label for="payment_number">Card Number</label>
-            <input class="w3-input" type="text" name="payment_number" required>
+            <input class="w3-input" type="text" name="payment_number" placeholder="Card Number" required>
             <label for="expmonth">Exp Month</label>
-            <input class="w3-input" type="text" name="expmonth" required>
+            <input class="w3-input" type="text" name="expmonth" placeholder="Month" required>
             <div class="row">
               <div class="col-50">
                 <label for="expyear">Exp Year</label>
-                <input class="w3-input" type="text" name="expyear" required>
+                <input class="w3-input" type="text" name="expyear" placeholder="Year" required>
               </div>
               <div class="col-50">
                 <label for="cvv">CVV</label>
-                <input class="w3-input" type="text" name="cvv" required>
+                <input class="w3-input" type="text" name="cvv" placeholder="cvv" required>
               </div>
             </div>
           </div>
