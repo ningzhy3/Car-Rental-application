@@ -15,10 +15,10 @@ urlpatterns = [
     url(r'^logout/$',logout_view),
     url(r'^register/$',register),
     url(r'^registration/$',registration),
-    
-    # url(r'^search/$',search),
-    # url(r'^search_results/$',search_results),
+    url(r'^corp_register/$',corp),
+    url(r'^corp_registration/$',corp_registration),
     url(r'^rent/$',rent_vehicle),
+    url(r'^location/$',location),
     url(r'^confirmed/',confirm),
     url(r'^return/',return_vehicle),
     url(r'^return_detail/',return_detail),
