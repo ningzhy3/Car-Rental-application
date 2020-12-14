@@ -1,0 +1,36 @@
+{% extends 'customer/base.html' %}
+{% block content %}
+{% load static %}
+<style>
+  form {
+    margin: 0 auto;
+    border: 10px solid #f1f1f1;
+    width:400px
+  }
+</style>
+
+<form action="/customer_portal/location/" method="post">{% csrf_token %}
+
+    <div class="imgcontainer">
+    <img src="{% static 'images/car001.jpeg' %}" alt="Avatar" class="avatar">
+    </div>
+    <div style="padding: 16px">
+    <label for="p_location"><b>Pick-up Location</b></label>
+    <select name="p_location" style="width: 300px;">
+        <option>-</option>
+        <optgroup label="Brooklyn">
+        <option value="100 High St">100 High St</option>
+        <option value="90 Bond St">90 Bond St</option>
+        </optgroup>
+        <optgroup label="New Jersey">
+        <option value="70 Greene St">70 Greene St</option>
+        <option value="225 Grand St">225 Grand St</option>
+        </optgroup>
+    </select>
+    <br>
+    </div>
+    <div style="padding: 16px">
+        <input class="w3-btn w3-red" type="submit"><br><br>
+    </div>
+</form>
+{% endblock %}
