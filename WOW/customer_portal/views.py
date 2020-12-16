@@ -240,7 +240,8 @@ def confirm(request):
     e_odometer = 0
     d_odometer_limit = 100
     
-    vehicle = Vehicle.objects.get(model = request.POST['model'])
+    # vehicle = Vehicle.objects.get(model = request.POST['model'])
+    vehicle = Vehicle.objects.get(model = request.POST['model'],location_id = p_location.id)
 
     rental_service = Rental_service(customer_id = customer, p_location = p_location,
     d_location = d_location, p_date = p_date, d_date = d_date, s_odometer = s_odometer,
