@@ -47,15 +47,15 @@ class Location(models.Model):
     phone = models.CharField(max_length=10)
 
     def __str__(self):
-        return 'Office located in %s' % (self.self.street_address)
+        return 'Office located in %s' % (self.street_address)
 
 # vehicle model
 class Vehicle(models.Model):
     vin = models.CharField(max_length=17, primary_key=True)
-    make = models.CharField(max_length=5)
-    model = models.CharField(max_length=5)
+    make = models.CharField(max_length=30)
+    model = models.CharField(max_length=30)
     year = models.CharField(max_length=4)
-    lpn = models.CharField(max_length=6)
+    lpn = models.CharField(max_length=30)
 
     location = models.ForeignKey(Location,on_delete=models.SET_NULL, null=True)
     vehicle_class = models.ForeignKey(Vehicle_class,on_delete=models.SET_NULL, null=True)
